@@ -1,7 +1,8 @@
-import { Link } from '@mui/material';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import { Link, TextField, Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import SearchIcon from "@mui/icons-material/Search";
 
 export const Header = () => {
     return (
@@ -34,6 +35,32 @@ export const Header = () => {
                         </Link>
                     </Typography>
 
+                    {/* 検索バー */}
+                    <TextField
+                        sx={{
+                            backgroundColor: "white",
+                            borderRadius: "5px",
+                            width: "13vw",
+                        }}
+                        id="search"
+                        variant="outlined"
+                        size="small"
+                    />
+                    <Button
+                        sx={{
+                            color: "white",
+                            borderRadius: "5px",
+                            ml: 1,
+                            width: "2vw",
+                            display: "inline-block",
+                            minHeight: 0,
+                            minWidth: 0,
+                        }}
+                        size="large"
+                        startIcon={<SearchIcon />}
+                        style={{ height: "2.3rem" }}
+                    >
+                    </Button>
                 </Toolbar>
             </Box>
         </>
