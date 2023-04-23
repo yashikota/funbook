@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 
 export const Header = () => {
-    const isSmallScreen = window.innerWidth <= 800;
+    // const isSmallScreen = window.innerWidth <= 800;
 
     const languages = [
         { label: "C" },
