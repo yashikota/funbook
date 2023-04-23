@@ -1,10 +1,22 @@
-import { Link, TextField, Button } from "@mui/material";
+import { Link, TextField, Button, Autocomplete } from "@mui/material";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 
 export const Header = () => {
+    const isSmallScreen = window.innerWidth <= 800;
+
+    const languages = [
+        { label: "C" },
+        { label: "C++" },
+        { label: "Java" },
+        { label: "Python" },
+        { label: "Go" },
+        { label: "Rust" },
+        { label: "JavaScript" },
+    ];
+
     return (
         <>
             <Box>
@@ -20,7 +32,7 @@ export const Header = () => {
                         component="div"
                         sx={{ flexGrow: 1 }}>
                         <Link
-                            sx={{ textDecoration: "none", color: "white" }}
+                            sx={{ textDecoration: "none", color: "white", mr: 1 }}
                             target="_blank"
                             rel="noopener noreferrer"
                             href="https://funbook.pages.dev">
@@ -35,30 +47,45 @@ export const Header = () => {
                         </Link>
                     </Typography>
 
+                    {/* 言語選択 */}
+                    <Autocomplete
+                        disablePortal
+                        id="SearchLanguage"
+                        size="small"
+                        options={languages}
+                        sx={{
+                            width: 200,
+                            backgroundColor: "white",
+                            borderRadius: "5px",
+                            mr: 1,
+                        }}
+                        renderInput={(params) => <TextField {...params} label="Language" />}
+                    />
+
                     {/* 検索バー */}
                     <TextField
                         sx={{
                             backgroundColor: "white",
                             borderRadius: "5px",
-                            width: "13vw",
+                            width: 350
                         }}
                         id="search"
+                        label="Function"
                         variant="outlined"
                         size="small"
                     />
                     <Button
                         sx={{
                             color: "white",
+                            variant: "outlined",
                             borderRadius: "5px",
-                            ml: 1,
-                            width: "2vw",
-                            display: "inline-block",
-                            minHeight: 0,
-                            minWidth: 0,
+                            border: "1px solid white",
+                            margin: "0 0.5rem",
+                            padding: "0.5rem 1rem",
                         }}
                         size="large"
+                        // TODO: アイコンが少し左にずれている
                         startIcon={<SearchIcon />}
-                        style={{ height: "2.3rem" }}
                     >
                     </Button>
                 </Toolbar>

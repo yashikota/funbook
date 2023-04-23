@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // UIライブラリ
 import Card from "@mui/material/Card";
@@ -7,11 +6,13 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Snackbar } from "@mui/material";
+import { Box, Modal, Snackbar } from "@mui/material";
 
 // シンタックスハイライト用
 import Prism from "prismjs";
 import "prismjs/themes/prism-okaidia.css";
+// import "prismjs/plugins/line-numbers/prism-line-numbers.js"
+// import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-java";
@@ -21,11 +22,14 @@ import "prismjs/components/prism-c";
 import "prismjs/components/prism-cpp";
 
 // カードコンポーネント
-export const MediaCard = (props: { title: string; code: string; url: string; }) => {
-    const { title, code, url } = props;
+export const MediaCard = (props: { language: string; code: string; }) => {
+    const { language, code } = props;
 
     // コピー通知
-    const [open, setOpen] = React.useState(false);
+    const [copyOpen, setCopyOpen] = useState(false);
+
+    // モーダル
+    const [modalOpen, setModalOpen] = useState(false);
 
     // Prismの初期化
     useEffect(() => {
@@ -35,20 +39,36 @@ export const MediaCard = (props: { title: string; code: string; url: string; }) 
     // コードをクリップボードにコピー
     const handleCopyClick = () => {
         navigator.clipboard.writeText(code);
-        setOpen(true);
+        setCopyOpen(true);
     };
 
     // コピー通知を閉じる
-    const handleClose = () => {
-        setOpen(false);
+    const handleCopyClose = () => {
+        setCopyOpen(false);
     };
 
     // 言語名を取得
     const getLanguage = () => {
-        if (title === "C++") {
+        if (language === "C++") {
             return "cpp";
         }
-        return title.toLowerCase();
+        return language.toLowerCase();
+    };
+
+    const handleModalOpen = () => setModalOpen(true);
+    const handleModalClose = () => setModalOpen(false);
+
+    const style = {
+        // eslint-disable-next-line @typescript-eslint/prefer-as-const
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
     };
 
     return (
@@ -56,7 +76,7 @@ export const MediaCard = (props: { title: string; code: string; url: string; }) 
             <Card sx={{ margin: "auto", border: 1 }}>
                 <CardContent>
 
-                    {/* タイトル */}
+                    {/* 言語名 */}
                     <Typography
                         gutterBottom
                         variant="h5"
@@ -64,7 +84,7 @@ export const MediaCard = (props: { title: string; code: string; url: string; }) 
                         margin="auto"
                         textAlign="center"
                     >
-                        {title}
+                        {language}
                     </Typography>
 
                     {/* ソースコード */}
@@ -72,12 +92,10 @@ export const MediaCard = (props: { title: string; code: string; url: string; }) 
                         variant="body2"
                         color="text.secondary"
                         sx={{
-                            whiteSpace: "pre-wrap",
                             position: "relative",
                             display: "flex",
                             alignItems: "center",
                             "& code": {
-                                // padding: "2px 5px",
                                 lineHeight: "1.25",
                                 overflowX: "auto",
                                 display: "block",
@@ -91,7 +109,7 @@ export const MediaCard = (props: { title: string; code: string; url: string; }) 
                             },
                         }}
                     >
-                        <pre style={{ width: "100%" }}>
+                        <pre className="line-numbers" style={{ width: "100%" }}>
                             <code className={`language-${getLanguage()}`}>
                                 {code}
                             </code>
@@ -112,25 +130,42 @@ export const MediaCard = (props: { title: string; code: string; url: string; }) 
                         >
                             <img src="https://zenn.dev/images/copy-icon.svg" alt="copy" width="25vw" />
                         </Button>
-                        <Snackbar open={open} autoHideDuration={1500} onClose={handleClose} message="コピーしました！" />
+                        <Snackbar open={copyOpen} autoHideDuration={1500} onClose={handleCopyClose} message="コピーしました！" />
                     </Typography>
                 </CardContent>
 
-                {/* ボタン */}
+                {/* モーダル */}
                 <CardActions>
                     <Button
                         size="large"
+                        onClick={handleModalOpen}
                         variant="contained"
+                        color="primary"
                         sx={{
                             margin: "auto",
                             px: 5,
                         }}
-                        href={url}
-                        target="_blank"
-                        rel="noopener"
                     >
                         詳しく見る
                     </Button>
+                    <Modal
+                        open={modalOpen}
+                        onClose={handleModalClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                関数名
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                引数
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                戻り値
+                            </Typography>
+                        </Box>
+                    </Modal>
                 </CardActions>
             </Card >
         </>
