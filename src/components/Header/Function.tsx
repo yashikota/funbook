@@ -1,9 +1,14 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useRef } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { functionState, inputErrorState } from "../Recoil/State.tsx";
 
 export default function Function({ isSmallScreen }: { isSmallScreen: boolean; }) {
-    const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useRecoilState(functionState);
+
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [inputError, setInputError] = useRecoilState(inputErrorState);
 
     const handleClear = () => {
         setSearchValue("");
@@ -11,6 +16,14 @@ export default function Function({ isSmallScreen }: { isSmallScreen: boolean; })
 
     const handleSearchValueChange = (event: { target: { value: SetStateAction<string>; }; }) => {
         setSearchValue(event.target.value);
+        if (inputRef.current) {
+            const ref = inputRef.current;
+            if (!ref.validity.valid) {
+                setInputError(true);
+            } else {
+                setInputError(false);
+            }
+        }
     };
 
     const width = isSmallScreen ? "100%" : "350px";
@@ -31,7 +44,10 @@ export default function Function({ isSmallScreen }: { isSmallScreen: boolean; })
             size="small"
             value={searchValue}
             onChange={handleSearchValueChange}
-            InputProps={{
+            error={inputError}
+            inputRef={inputRef}
+            inputProps={{
+                pattern: "[\x20-\x7E]*",
                 endAdornment: (
                     <InputAdornment position="end">
                         {searchValue && (
