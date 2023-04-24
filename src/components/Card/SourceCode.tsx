@@ -1,14 +1,16 @@
 import { useEffect } from "react";
-import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
-import CopyButton from "./Buttons/Copy";
+import CopyButton from "../Buttons/Copy.tsx";
 
 import Prism from "prismjs";
 import "prismjs/themes/prism-okaidia.css";
 
-// import "prismjs/plugins/line-numbers/prism-line-numbers.js"
-// import "prismjs/plugins/line-numbers/prism-line-numbers.css"
+// 行番号
+import "prismjs/plugins/line-numbers/prism-line-numbers.js"
+import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 
+// 言語ごとのスタイル
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-java";
@@ -34,26 +36,11 @@ export default function SourceCode(props: { language: string, code: string }) {
     };
 
     return (
-        <Typography
-            variant="body2"
-            color="text.secondary"
+        <Box
             sx={{
                 position: "relative",
                 display: "flex",
-                alignItems: "center",
-                fontSize: "18px",
-                "& code": {
-                    lineHeight: "1.25",
-                    overflowX: "auto",
-                    display: "block",
-                    width: "100%",
-                    "& .token.comment": {
-                        color: "gray",
-                    },
-                    "& .token.keyword, & .token.operator": {
-                        fontWeight: "bold",
-                    }
-                },
+                fontSize: "16px",
             }}
         >
             <pre className="line-numbers" style={{ width: "100%" }}>
@@ -62,6 +49,6 @@ export default function SourceCode(props: { language: string, code: string }) {
                 </code>
             </pre>
             <CopyButton code={code} />
-        </Typography>
+        </Box >
     );
 }
