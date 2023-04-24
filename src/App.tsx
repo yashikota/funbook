@@ -1,5 +1,5 @@
 import { Grid, GlobalStyles } from "@mui/material";
-import { MediaCard } from "./components/Card.tsx";
+import { MediaCard } from "./components/Card/Card.tsx";
 import { Header } from "./components/Header/Header.tsx";
 
 export default function App() {
