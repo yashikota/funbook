@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, Box, AppBar, Toolbar, Typography, Collapse, IconButton } from "@mui/material";
+
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from '@mui/icons-material/Close';
 
 import Function from "./Function";
 import Language from "./Language";
@@ -17,8 +19,18 @@ export const Header = () => {
 
     return (
         <>
-            <Box>
-                <AppBar position="static">
+            <Box
+                sx={{
+                    flexGrow: 1,
+                    minHeight: 44,
+                }}
+            >
+                <AppBar
+                    sx={{
+                        position: "fixed",
+                        minHeight: 64,
+                    }}
+                >
                     <Toolbar
                         sx={{
                             minHeight: 64,
@@ -59,7 +71,7 @@ export const Header = () => {
                                     ml: 1,
                                 }}
                             >
-                                <MenuIcon />
+                                {open ? <CloseIcon /> : <MenuIcon />}
                             </IconButton>
                         ) : (
                             // 端末サイズが大きい場合
@@ -78,7 +90,15 @@ export const Header = () => {
                 </AppBar>
 
                 {/* 端末サイズが小さい場合 */}
-                <Collapse in={open}>
+                <Collapse
+                    sx={{
+                        position: "fixed",
+                        top: 64,
+                        width: "100%",
+                        zIndex: 1
+                    }}
+                    in={open}
+                >
                     <Box sx={{ p: 2, backgroundColor: "#424242" }}>
                         <>
                             {/* 言語選択 */}
