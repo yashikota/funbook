@@ -4,9 +4,9 @@ import SourceCode from "./SourceCode";
 import { Card, CardContent, Typography } from "@mui/material";
 
 // ボタン
-import ModalButton from "./buttons/Modal";
-import BookMarkButton from "./buttons/BookMark";
-import ShareButton from "./buttons/Share";
+import ModalButton from "./Buttons/Modal";
+import BookMarkButton from "./Buttons/BookMark";
+import ShareButton from "./Buttons/Share";
 
 // カードコンポーネント
 export const MediaCard = (props: { language: string; func: string; code: string; }) => {

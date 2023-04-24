@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Typography } from "@mui/material";
 
-import CopyButton from "./buttons/Copy";
+import CopyButton from "./Buttons/Copy";
 
 import Prism from "prismjs";
 import "prismjs/themes/prism-okaidia.css";
