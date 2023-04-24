@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 
 const Languages = () => {
-    const languages = [
+    return [
         { label: "C" },
         { label: "C++" },
         { label: "Java" },
@@ -10,11 +11,12 @@ const Languages = () => {
         { label: "Rust" },
         { label: "JavaScript" },
     ];
-    return languages;
 }
 
 export default function Language({ isSmallScreen }: { isSmallScreen: boolean; }) {
     const width = isSmallScreen ? "100%" : "200px";
+
+    const [value, setValue] = useState("");
 
     return (
         < Autocomplete
@@ -22,6 +24,9 @@ export default function Language({ isSmallScreen }: { isSmallScreen: boolean; })
             id="SearchLanguage"
             size="small"
             options={Languages()}
+            onChange={(_, newValue) => {
+                setValue(newValue ? newValue.label : "");
+            }}
             sx={{
                 width: width,
                 backgroundColor: "white",
@@ -29,7 +34,12 @@ export default function Language({ isSmallScreen }: { isSmallScreen: boolean; })
                 mr: isSmallScreen ? 0 : 1,
                 mb: isSmallScreen ? 1 : 0,
             }}
-            renderInput={(params) => <TextField {...params} label="Language" />}
+            renderInput={(params) => <TextField
+                {...params}
+                label={value ? "" : "Language"}
+                onChange={(event) => setValue(event.target.value)}
+                InputLabelProps={{ shrink: false }}
+            />}
         />
     );
 }

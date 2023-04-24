@@ -25,7 +25,8 @@ export default function Function({ isSmallScreen }: { isSmallScreen: boolean; })
                 mb: isSmallScreen ? 1 : 0,
             }}
             id="search"
-            label="Function"
+            label={searchValue ? " " : "Function Name"}
+            InputLabelProps={{ shrink: false }}
             variant="outlined"
             size="small"
             value={searchValue}
