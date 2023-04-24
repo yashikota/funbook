@@ -14,7 +14,7 @@ export const MediaCard = (props: { language: string; func: string; code: string;
 
     return (
         <>
-            <Card sx={{ margin: "auto", border: 1 }}>
+            <Card sx={{ margin: "auto", border: 1, position: "relative" }}>
                 <CardContent>
 
                     {/* 言語名 */}
@@ -30,7 +30,7 @@ export const MediaCard = (props: { language: string; func: string; code: string;
                     <Typography
                         variant="h5"
                         component="div"
-                        textAlign="left"
+                        textAlign="center"
                     >
                         {func}
                     </Typography>
@@ -39,9 +39,9 @@ export const MediaCard = (props: { language: string; func: string; code: string;
                     <SourceCode language={language} code={code} />
 
                     {/* ボタン */}
-                    <ModalButton />
-                    <BookMarkButton />
                     <ShareButton />
+                    <BookMarkButton />
+                    <ModalButton />
 
                 </CardContent>
             </Card >

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import { IconButton } from "@mui/material";
 import { Box, Modal, Typography } from "@mui/material";
 
+import OpenInFullIcon from "@mui/icons-material/OpenInFull";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function ModalButton() {
     const [modalOpen, setModalOpen] = useState(false);
@@ -28,9 +29,9 @@ export default function ModalButton() {
             size="small"
             onClick={handleModalOpen}
             sx={{
-                position: "relative",
-                top: 0,
-                right: 0,
+                position: "absolute",
+                top: 10,
+                right: 10,
                 color: "black",
                 opacity: 0.5,
                 transition: "opacity 0.2s ease-in-out",
@@ -48,6 +49,14 @@ export default function ModalButton() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
+                    <Box sx={{
+                        height: 0,
+                        textAlign: "right",
+                    }}>
+                        <IconButton onClick={handleModalClose}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         関数名
                     </Typography>
