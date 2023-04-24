@@ -7,7 +7,7 @@ export default function ShareButton() {
             size="small"
             sx={{
                 position: "absolute",
-                top: 10,
+                top: 14,
                 right: 90,
                 color: "black",
                 opacity: 0.5,

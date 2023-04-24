@@ -30,7 +30,7 @@ export default function ModalButton() {
             onClick={handleModalOpen}
             sx={{
                 position: "absolute",
-                top: 10,
+                top: 14,
                 right: 10,
                 color: "black",
                 opacity: 0.5,

@@ -7,7 +7,7 @@ export default function BookMarkButton() {
             size="small"
             sx={{
                 position: "absolute",
-                top: 10,
+                top: 14,
                 right: 50,
                 color: "black",
                 opacity: 0.5,
