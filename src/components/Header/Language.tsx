@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { languageState } from "../Store/State.tsx";
 
 const Languages = () => {
     return [
@@ -16,7 +17,7 @@ const Languages = () => {
 export default function Language({ isSmallScreen }: { isSmallScreen: boolean; }) {
     const width = isSmallScreen ? "100%" : "200px";
 
-    const [value, setValue] = useState("");
+    const [value, setValue] = useRecoilState(languageState);
 
     return (
         < Autocomplete

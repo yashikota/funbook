@@ -2,7 +2,7 @@ import { SetStateAction, useRef } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
-import { functionState, inputErrorState } from "../Recoil/State.tsx";
+import { functionState, inputErrorState } from "../Store/State.tsx";
 
 export default function Function({ isSmallScreen }: { isSmallScreen: boolean; }) {
     const [searchValue, setSearchValue] = useRecoilState(functionState);
