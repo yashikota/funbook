@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "name": "FunBook",
+    "short_name": "FunBook",
+    "start_url": "/?source=pwa",
+    "display": "standalone",
+    "background_color": "#424242",
+    "description": "異なるプログラミング言語の関数も一発検索！FunBookで多言語開発をもっと便利に！",
+    "icons": [
+        {
+            "src": "/icon-48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-168.png",
+            "sizes": "168x168",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}
