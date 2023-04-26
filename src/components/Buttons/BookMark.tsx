@@ -8,7 +8,7 @@ export default function BookMarkButton() {
             sx={{
                 position: "absolute",
                 top: 14,
-                right: 50,
+                right: 10,
                 color: "black",
                 opacity: 0.5,
                 transition: "opacity 0.2s ease-in-out",

@@ -1,63 +1,47 @@
-import { useRecoilValue } from "recoil";
-import { languageState, functionState, responseState } from "../Store/State.tsx";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { languageState, functionState, responseState, resultState } from "../Store/State.tsx";
+import { useState } from "react";
 
-export default async function Api() {
-    const language = useRecoilValue(languageState);
-    const func = useRecoilValue(functionState);
-    const response = useRecoilValue(responseState);
+// export default function Api() {
+//     const language = useRecoilValue(languageState);
+//     const func = useRecoilValue(functionState);
+//     const response = useRecoilValue(responseState);
 
-    console.log(language, func, response);
+//     const url = "https://nem-lab.net:9669/funbook/api/search";
+//     const [data, setData] = useRecoilState(resultState);
+//     const [loading, setLoading] = useState(false);
+//     const [error, setError] = useState<Error | null>(null);
 
-    const url = "http://nem-lab.net:9669/funbook/api/Search";
+//     const fetchData = async () => {
+//         setLoading(true);
+//         try {
+//             const form = new FormData();
+//             form.append("language", language);
+//             form.append("function", func);
+//             response.forEach(lang => {
+//                 form.append("response[]", lang);
+//             });
 
-    const form = new FormData();
-    form.append("language", language);
-    form.append("function", func);
-    response.forEach(lang => {
-        form.append("response[]", lang);
-    });
+//             const res = await fetch(url, {
+//                 method: "POST",
+//                 body: form,
+//             });
 
-    const fetchData = async () => {
-        const res = await fetch(url, {
-            method: "POST",
-            body: form,
-        });
-        const data = await res.json();
-        console.log(data);
-        return data;
-    }
+//             const json = await res.json();
+//             setData(json);
+//         } catch (e: unknown) {
+//             if (e instanceof Error) {
+//                 setError(e);
+//             } else {
+//                 setError(new Error("Unknown error"));
+//             }
+//         }
+//         setLoading(false);
+//     }
 
-    fetchData();
+//     fetchData();
+// }
+
+export default function Api() {
+    return useRecoilValue(resultState);
 }
-
-// import { useState, useEffect } from 'react'
-
-// interface Post {
-//     id: number
-//     title: string
-// }
-
-// const Api = () => {
-//     const [posts, setPosts] = useState<Post[]>([])
-
-//     useEffect(() => {
-//         fetch('https://jsonplaceholder.typicode.com/posts', { method: 'GET' })
-//             .then(res => res.json())
-//             .then(data => {
-//                 setPosts(data)
-//             })
-//     }, [])
-
-//     return (
-//         <div>
-//             <ul>
-//                 {
-//                     posts.map(post => <li key={post.id}>{post.title}</li>)
-//                 }
-//             </ul>
-
-//         </div>
-//     )
-// }
-
-// export default Api

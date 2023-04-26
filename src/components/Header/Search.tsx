@@ -1,4 +1,3 @@
-import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { IconButton } from "@mui/material";
 import Api from "../Api/Api.tsx";
@@ -6,14 +5,15 @@ import Api from "../Api/Api.tsx";
 export default function Search({ isSmallScreen }: { isSmallScreen: boolean; }) {
     const width = isSmallScreen ? "100%" : "auto";
 
-    const [data, setData] = useState<any>(null);
+    const api = Api();
 
-    const handleSearch = () => {
-        Api().then((data) => {
-            setData(data);
-            console.log(data);
-        });
-    }
+    const handleSearch = async () => {
+        try {
+            api;
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <IconButton

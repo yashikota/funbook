@@ -1,0 +1,46 @@
+{
+    "message": {
+        "c": {
+            "args": "書式指定文字列, 引数, ...",
+            "example": "printf(\"Hello, World!\\n\");",
+            "function": "printf",
+            "return": "書き込んだ文字数"
+        },
+        "c++": {
+            "args": "出力する値",
+            "example": "std::cout << \"Hello, World!\" << std::endl;",
+            "function": "std::cout <<",
+            "return": "std::ostream&"
+        },
+        "go": {
+            "args": "出力する値",
+            "example": "fmt.Println(\"Hello, World!\")",
+            "function": "fmt.Println",
+            "return": "なし"
+        },
+        "java": {
+            "args": "出力する値",
+            "example": "System.out.println(\"Hello, World!\");",
+            "function": "System.out.println",
+            "return": "なし"
+        },
+        "javascript": {
+            "args": "出力する値",
+            "example": "console.log(\"Hello, World!\");",
+            "function": "console.log",
+            "return": "なし"
+        },
+        "python": {
+            "args": "可変長文字列",
+            "example": "print(\"Hello, World!\") # Output: Hello, World!",
+            "function": "print",
+            "return": "なし"
+        },
+        "rust": {
+            "args": "書式指定文字列, 引数, ...",
+            "example": "println!(\"Hello, World!\");",
+            "function": "println!",
+            "return": "なし"
+        }
+    }
+}

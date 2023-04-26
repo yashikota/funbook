@@ -4,13 +4,12 @@ import SourceCode from "./SourceCode";
 import { Card, CardContent, Typography } from "@mui/material";
 
 // ボタン
-import ModalButton from "../Buttons/Modal";
 import BookMarkButton from "../Buttons/BookMark";
 import ShareButton from "../Buttons/Share";
 
 // カードコンポーネント
-export const MediaCard = (props: { language: string; func: string; code: string; }) => {
-    const { language, func, code } = props;
+export const MediaCard = (props: { language: string; args: string; code: string; func: string; return: string }) => {
+    const { language, args, code, func, return: returnValue } = props;
 
     return (
         <>
@@ -38,10 +37,27 @@ export const MediaCard = (props: { language: string; func: string; code: string;
                     {/* ソースコード */}
                     <SourceCode language={language} code={code} />
 
+                    {/* 引数 */}
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        textAlign="left"
+                    >
+                        引数&emsp;  : {args}
+                    </Typography>
+
+                    {/* 戻り値 */}
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        textAlign="left"
+                    >
+                        戻り値 : {returnValue}
+                    </Typography>
+
                     {/* ボタン */}
                     <ShareButton />
                     <BookMarkButton />
-                    <ModalButton />
 
                 </CardContent>
             </Card >
