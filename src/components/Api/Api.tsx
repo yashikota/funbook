@@ -1,6 +1,6 @@
-import { useRecoilValue, useRecoilState } from "recoil";
-import { languageState, functionState, responseState, resultState } from "../Store/State.tsx";
-import { useState } from "react";
+// import { useRecoilValue, useRecoilState } from "recoil";
+// import { languageState, functionState, responseState, resultState } from "../Store/State.tsx";
+// import { useState } from "react";
 
 // export default function Api() {
 //     const language = useRecoilValue(languageState);
@@ -41,6 +41,9 @@ import { useState } from "react";
 
 //     fetchData();
 // }
+
+import { useRecoilValue } from "recoil";
+import { resultState } from "../Store/State.tsx";
 
 export default function Api() {
     return useRecoilValue(resultState);
