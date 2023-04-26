@@ -1,8 +1,9 @@
 import { Grid, GlobalStyles } from "@mui/material";
-import { MediaCard } from "./components/Card/Card.js";
-import { Header } from "./components/Header/Header.js";
+import { MediaCard } from "./components/Card/Card.tsx";
+import { Header } from "./components/Header/Header.tsx";
+import Search from "./components/Header/Search.tsx";
 
-import { resultState } from "./components/Store/State.js";
+import { resultState } from "./components/Store/State.tsx";
 import { useRecoilValue } from "recoil";
 
 type Message = {
@@ -26,6 +27,9 @@ export default function App() {
 
             {/* ヘッダー */}
             <Header />
+
+            {/* 検索 */}
+            <Search />
 
             {/* カード */}
             <Grid
