@@ -1,4 +1,4 @@
-import { Link, Box, AppBar, Toolbar, Typography } from "@mui/material";
+import { Link, Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 
 // import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 // import BookmarkIcon from "@mui/icons-material/Bookmark";
@@ -29,6 +29,17 @@ export const Header = () => {
                                 &nbsp;FunBook
                             </Link>
                         </Typography>
+
+                        {/* ご意見箱へのボタン */}
+                        <Button
+                            sx={{ color: "white", mr: 1, borderColor: "white" }}
+                            variant="outlined"
+                            href="https://forms.gle/NT8qVGv1YKXeg7899"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            ご意見はこちらから
+                        </Button>
 
                         {/* ランキングボタン */}
                         {/* <IconButton
