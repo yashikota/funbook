@@ -3,7 +3,7 @@ import { MediaCard } from "./components/Card/Card.tsx";
 import { Header } from "./components/Header/Header.tsx";
 import Search from "./components/Header/Search.tsx";
 
-import { resultState } from "./components/Store/State.tsx";
+import { languageState, responseState, resultState } from "./components/Store/State.tsx";
 import { useRecoilValue } from "recoil";
 
 type Message = {
@@ -19,6 +19,11 @@ export default function App() {
     const resultData = useRecoilValue(resultState);
     const message: Message = resultData.message;
     const keys = Object.keys(message);
+
+    const language = useRecoilValue(languageState);
+    const responses = useRecoilValue(responseState);
+    const isLanguageInclude = responses.includes(language);
+    console.log(isLanguageInclude);
 
     return (
         <>
@@ -51,6 +56,7 @@ export default function App() {
                         />
                     </Grid>
                 )}
+
             </Grid>
         </>
     );
