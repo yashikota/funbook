@@ -1,5 +1,4 @@
-import { Checkbox, FormControl, IconButton, InputAdornment, ListItemText, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
-import { Autocomplete, TextField, Box } from "@mui/material";
+import { Checkbox, FormControl, IconButton, InputAdornment, ListItemText, MenuItem, Select, SelectChangeEvent, Typography, Grid, Autocomplete, TextField } from "@mui/material";
 import { SetStateAction, useRef, useState } from "react";
 
 import SearchIcon from "@mui/icons-material/Search";
@@ -39,7 +38,7 @@ const languages = [
 ];
 
 export default function Search() {
-    const isSmallScreen = window.innerWidth <= 830;
+    const isSmallScreen = window.innerWidth <= 1500;
 
     const [fromLangValue, setFromLangValue] = useState("");
     const [funcValue, setFuncValue] = useState("");
@@ -82,7 +81,6 @@ export default function Search() {
     const FetchApi = async () => {
         setLoading(true);
         try {
-            console.log("api", fromLangValue, funcValue, toLangValue);
             const form = new FormData();
             form.append("language", fromLangValue);
             form.append("function", funcValue);
@@ -107,142 +105,155 @@ export default function Search() {
     }
 
     return (
-        <Box>
+        <Grid container direction="row" justifyContent="center" alignItems="center">
 
-            {/* 変換元 言語選択 */}
-            < Autocomplete
-                disablePortal
-                id="SearchLanguage"
-                size="small"
-                options={Languages()}
-                sx={{
-                    width: isSmallScreen ? "80%" : 300,
-                    backgroundColor: "white",
-                    borderRadius: "5px",
-                    ml: isSmallScreen ? 0 : 1,
-                    mr: isSmallScreen ? 0 : 1,
-                    mb: isSmallScreen ? 1 : 0,
-                }}
-                onChange={(_, newValue) => {
-                    setFromLangValue(newValue?.label ?? "");
-                    if (newValue?.label === "") {
-                        setFromLangInputError(true);
-                    } else {
-                        setFromLangInputError(false);
-                    }
-                }}
-                renderInput={(params) => <TextField
-                    {...params}
-                    error={fromLangInputError}
-                    helperText={fromLangInputError ? "言語を選択してください" : ""}
-                    label="変換元"
-                />}
-            />
-
-            <Typography
-                sx={{
-                    color: "inherit",
-                }}
-                variant="h5"
-            >
-                言語の
-            </Typography>
-
-            {/* 変換元 関数名 */}
-            <TextField
-                sx={{
-                    backgroundColor: "white",
-                    borderRadius: "5px",
-                    width: isSmallScreen ? "80%" : 300,
-                    mr: isSmallScreen ? 0 : 1,
-                    ml: isSmallScreen ? 0 : 1,
-                    mb: isSmallScreen ? 1 : 0,
-                }}
-                id="search"
-                label="関数名"
-                variant="outlined"
-                size="small"
-                value={funcValue}
-                onChange={handleSearchValueChange}
-                error={funcInputError}
-                inputRef={inputRef}
-                helperText={funcInputError ? "ASCII文字で入力してください" : ""}
-                inputProps={{
-                    pattern: "[\x20-\x7E]*",
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            {funcValue && (
-                                <IconButton size="small" onClick={() => setFuncValue("")}>
-                                    <ClearIcon />
-                                </IconButton>
-                            )}
-                        </InputAdornment>
-                    ),
-                }}
-            />
-
-            <Typography
-                sx={{
-                    color: "inherit",
-                }}
-                variant="h5"
-            >
-                関数は
-            </Typography>
-
-            {/* 変換先 言語選択 */}
-            <FormControl sx={{
-                backgroundColor: "white",
-                borderRadius: "5px",
-                width: isSmallScreen ? "80%" : 300,
-                mr: isSmallScreen ? 0 : 1,
-                ml: isSmallScreen ? 0 : 1,
-                mb: isSmallScreen ? 1 : 0,
-            }}>
-                <Select
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={toLangValue}
-                    onChange={handleToLangChange}
-                    renderValue={(selected) => selected.join(", ")}
-                    MenuProps={MenuProps}
+            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center" }}>
+                {/* 変換元 言語選択 */}
+                <Autocomplete
+                    disablePortal
+                    id="SearchLanguage"
                     size="small"
-                    error={toLangInputError}
+                    options={Languages()}
+                    sx={{
+                        width: isSmallScreen ? "80%" : 300,
+                        backgroundColor: "white",
+                        borderRadius: "5px",
+                        mr: 1,
+                        ml: 1,
+                        mb: 1,
+                    }}
+                    onChange={(_, newValue) => {
+                        setFromLangValue(newValue?.label ?? "");
+                        if (newValue?.label === "") {
+                            setFromLangInputError(true);
+                        } else {
+                            setFromLangInputError(false);
+                        }
+                    }}
+                    renderInput={(params) => <TextField
+                        {...params}
+                        error={fromLangInputError}
+                        helperText={fromLangInputError ? "言語を選択してください" : ""}
+                        label="変換元"
+                    />}
+                />
+
+                <Typography
+                    sx={{
+                        width: 80,
+                        color: "inherit",
+                        fontSize: "1.5rem",
+                    }}
                 >
-                    {languages.map((language) => (
-                        <MenuItem key={language} value={language}>
-                            <Checkbox checked={toLangValue.indexOf(language) > -1} />
-                            <ListItemText primary={language} />
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
+                    言語の
+                </Typography>
+            </Grid>
 
-            <Typography
-                sx={{
-                    color: "inherit",
-                }}
-                variant="h5"
-            >
-                言語では？
-            </Typography>
+            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center" }}>
+                {/* 変換元 関数名 */}
+                <TextField
+                    sx={{
+                        backgroundColor: "white",
+                        borderRadius: "5px",
+                        width: isSmallScreen ? "80%" : 300,
+                        mr: 1,
+                        ml: 1,
+                        mb: 1,
+                    }}
+                    id="search"
+                    label="関数名"
+                    variant="outlined"
+                    size="small"
+                    value={funcValue}
+                    onChange={handleSearchValueChange}
+                    error={funcInputError}
+                    inputRef={inputRef}
+                    helperText={funcInputError ? "ASCII文字で入力してください" : ""}
+                    inputProps={{
+                        pattern: "[\x20-\x7E]*",
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                {funcValue && (
+                                    <IconButton size="small" onClick={() => setFuncValue("")}>
+                                        <ClearIcon />
+                                    </IconButton>
+                                )}
+                            </InputAdornment>
+                        ),
+                    }}
+                />
 
-            {/* 検索アイコン */}
-            <IconButton
-                sx={{
-                    color: "inherit",
-                    variant: "outlined",
-                    border: "1px solid black",
+                <Typography
+                    sx={{
+                        width: 80,
+                        color: "inherit",
+                        fontSize: "1.5rem",
+                    }}
+                >
+                    関数は
+                </Typography>
+            </Grid>
+
+            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center" }}>
+                {/* 変換先 言語選択 */}
+                <FormControl sx={{
+                    backgroundColor: "white",
                     borderRadius: "5px",
                     width: isSmallScreen ? "80%" : 300,
-                    ml: isSmallScreen ? 0 : 1,
-                }}
-                aria-label="search"
-                onClick={FetchApi}
-            >
-                <SearchIcon />
-                {isSmallScreen ? "検索" : ""}
-            </IconButton>
+                    mr: 1,
+                    ml: 1,
+                    mb: 1,
+                }}>
+                    <Select
+                        id="demo-multiple-checkbox"
+                        multiple
+                        value={toLangValue}
+                        onChange={handleToLangChange}
+                        renderValue={(selected) => selected.join(", ")}
+                        MenuProps={MenuProps}
+                        size="small"
+                        error={toLangInputError}
+                    >
+                        {languages.map((language) => (
+                            <MenuItem key={language} value={language}>
+                                <Checkbox checked={toLangValue.indexOf(language) > -1} />
+                                <ListItemText primary={language} />
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+
+                <Typography
+                    sx={{
+                        width: 155,
+                        color: "inherit",
+                        fontSize: "1.5rem",
+                    }}
+                >
+                    言語では？
+                </Typography>
+            </Grid>
+
+            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center" }}>
+                {/* 検索アイコン */}
+                <IconButton
+                    sx={{
+                        color: "inherit",
+                        variant: "outlined",
+                        border: "1px solid black",
+                        borderRadius: "5px",
+                        width: "90%",
+                        mr: 5,
+                        ml: 5,
+                    }}
+                    aria-label="search"
+                    onClick={FetchApi}
+                    size="small"
+                >
+                    <SearchIcon />
+                    検索
+                </IconButton>
+            </Grid>
 
             {error && <p style={{ color: "red" }}>{error.message}</p>}
             {loading && <p>Loading...</p>}
@@ -250,6 +261,6 @@ export default function Search() {
                 <pre>{JSON.stringify(result, null, 2)}</pre>
             )}
 
-        </Box>
+        </Grid>
     );
 }
