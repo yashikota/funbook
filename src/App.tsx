@@ -20,10 +20,10 @@ export default function App() {
     const message: Message = resultData.message;
     const keys = Object.keys(message);
 
-    const language = useRecoilValue(languageState);
-    const responses = useRecoilValue(responseState);
+    const language: string = useRecoilValue(languageState);
+    const responses: string[] = useRecoilValue(responseState);
     const isLanguageInclude = responses.includes(language);
-    console.log(isLanguageInclude);
+    const newKeys: string[] = keys.filter(key => key !== language);
 
     return (
         <>
@@ -45,18 +45,28 @@ export default function App() {
                 alignItems="center"
                 justifyContent="center">
 
-                {keys.map(key =>
-                    <Grid item xs={12} sm={6}>
-                        <MediaCard
-                            language={key}
-                            args={message[key].args}
-                            code={message[key].example}
-                            func={message[key].function}
-                            return={message[key].return}
-                        />
-                    </Grid>
-                )}
-
+                {isLanguageInclude ?
+                    keys.map(key =>
+                        <Grid item xs={12} sm={6}>
+                            <MediaCard
+                                language={key}
+                                args={message[key].args}
+                                code={message[key].example}
+                                func={message[key].function}
+                                return={message[key].return}
+                            />
+                        </Grid>
+                    ) : newKeys.map(key =>
+                        <Grid item xs={12} sm={6}>
+                            <MediaCard
+                                language={key}
+                                args={message[key].args}
+                                code={message[key].example}
+                                func={message[key].function}
+                                return={message[key].return}
+                            />
+                        </Grid>
+                    )}
             </Grid>
         </>
     );

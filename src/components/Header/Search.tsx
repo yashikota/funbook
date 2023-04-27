@@ -1,7 +1,9 @@
 import { Checkbox, FormControl, IconButton, InputAdornment, ListItemText, MenuItem, Select, SelectChangeEvent, Typography, Grid, Autocomplete, TextField } from "@mui/material";
-import { SetStateAction, useRef, useState } from "react";
+import { SetStateAction, useRef } from "react";
+
 import { useRecoilState } from "recoil";
-import { resultState } from "../Store/State";
+import { languageState, functionState, responseState, resultState, loadingState } from "../Store/State";
+import { LanguageErrorState, FunctionErrorState, ResponseErrorState, ResultErrorState } from "../Store/State";
 
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -37,20 +39,25 @@ const languages = [
     "Go",
     "Rust",
     "JavaScript",
+    "TypeScript",
 ];
 
 export default function Search() {
     const isSmallScreen = window.innerWidth <= 1500;
+    const url = "https://nem-lab.net:9669/funbook/api/search";
 
-    const [fromLangValue, setFromLangValue] = useState("");
-    const [funcValue, setFuncValue] = useState("");
-    const [toLangValue, setToLangValue] = useState<string[]>([]);
+    const [fromLangValue, setFromLangValue] = useRecoilState(languageState);
+    const [funcValue, setFuncValue] = useRecoilState(functionState);
+    const [toLangValue, setToLangValue] = useRecoilState<string[]>(responseState);
+    const [result, setResult] = useRecoilState(resultState);
+    const [loading, setLoading] = useRecoilState(loadingState);
 
-    const [fromLangInputError, setFromLangInputError] = useState(false);
-    const [funcInputError, setFuncInputError] = useState(false);
-    const [toLangInputError, setToLangInputError] = useState(false);
+    console.log(result);
 
-    console.log(setToLangInputError);
+    const [languageError, setLanguageError] = useRecoilState(LanguageErrorState);
+    const [functionError, setFunctionError] = useRecoilState(FunctionErrorState);
+    const [responseError, setResponseError] = useRecoilState(ResponseErrorState);
+    const [resultError, setResultError] = useRecoilState<Error | null>(ResultErrorState);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -58,11 +65,7 @@ export default function Search() {
         setFuncValue(event.target.value);
         if (inputRef.current) {
             const ref = inputRef.current;
-            if (!ref.validity.valid) {
-                setFuncInputError(true);
-            } else {
-                setFuncInputError(false);
-            }
+            !ref.validity.valid ? setFunctionError(true) : setFunctionError(false);
         }
     };
 
@@ -75,16 +78,9 @@ export default function Search() {
         );
     };
 
-    const url = "https://nem-lab.net:9669/funbook/api/search";
-    const [result, setResult] = useRecoilState(resultState);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<Error | null>(null);
-
-    console.log(result);
-
     const FetchApi = async () => {
         setLoading(true);
-        setError(null);
+        setResultError(null);
         try {
             const form = new FormData();
             form.append("language", fromLangValue);
@@ -104,9 +100,9 @@ export default function Search() {
             setResult(json);
         } catch (e: unknown) {
             if (e instanceof Error) {
-                setError(e);
+                setResultError(e);
             } else {
-                setError(new Error("Unknown error"));
+                setResultError(new Error("Unknown error"));
             }
         }
         setLoading(false);
@@ -131,15 +127,15 @@ export default function Search() {
                     onChange={(_, newValue) => {
                         setFromLangValue(newValue?.label ?? "");
                         if (newValue?.label === "") {
-                            setFromLangInputError(true);
+                            setLanguageError(true);
                         } else {
-                            setFromLangInputError(false);
+                            setLanguageError(false);
                         }
                     }}
                     renderInput={(params) => <TextField
                         {...params}
-                        error={fromLangInputError}
-                        helperText={fromLangInputError ? "言語を選択してください" : ""}
+                        error={languageError}
+                        helperText={languageError ? "言語を選択してください" : ""}
                         label="変換元"
                     />}
                 />
@@ -170,9 +166,9 @@ export default function Search() {
                     size="small"
                     value={funcValue}
                     onChange={handleSearchValueChange}
-                    error={funcInputError}
+                    error={functionError}
                     inputRef={inputRef}
-                    helperText={funcInputError ? "ASCII文字で入力してください" : ""}
+                    helperText={functionError ? "ASCII文字で入力してください" : ""}
                     inputProps={{
                         pattern: "[\x20-\x7E]*",
                         endAdornment: (
@@ -214,7 +210,7 @@ export default function Search() {
                         renderValue={(selected) => selected.join(", ")}
                         MenuProps={MenuProps}
                         size="small"
-                        error={toLangInputError}
+                        error={responseError}
                     >
                         {languages.map((language) => (
                             <MenuItem key={language} value={language}>
@@ -248,7 +244,14 @@ export default function Search() {
                         m: 1,
                     }}
                     aria-label="search"
-                    onClick={FetchApi}
+                    onClick={() => {
+                        fromLangValue === "" ? setLanguageError(true) : setLanguageError(false);
+                        funcValue === "" ? setFunctionError(true) : setFunctionError(false);
+                        toLangValue.length === 0 ? setResponseError(true) : setResponseError(false);
+                        if (fromLangValue !== "" && funcValue !== "" && toLangValue.length !== 0) {
+                            FetchApi();
+                        }
+                    }}
                     size="small"
                 >
                     <SearchIcon />
@@ -256,7 +259,7 @@ export default function Search() {
                 </IconButton>
             </Grid>
 
-            {error && <p style={{ color: "red" }}>{error.message}</p>}
+            {resultError && <p style={{ color: "red" }}>{resultError.message}</p>}
             {loading && <p>検索中...</p>}
 
         </Grid>
