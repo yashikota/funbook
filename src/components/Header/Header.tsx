@@ -26,7 +26,7 @@ export const Header = () => {
                                     height="32"
                                     style={{ verticalAlign: "middle" }}
                                 />
-                                &nbsp;FunBook
+                                &nbsp;FunBook (β版)
                             </Link>
                         </Typography>
 
