@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { atom } from "recoil";
 
 import initData from "../../json/init.json";
@@ -14,7 +15,7 @@ export const functionState = atom({
 
 export const responseState = atom({
     key: "responseState",
-    default: ["c", "rust"],
+    default: [""],
 });
 
 export const resultState = atom({
@@ -22,7 +23,27 @@ export const resultState = atom({
     default: initData,
 });
 
-export const inputErrorState = atom({
-    key: "inputErrorState",
+export const loadingState = atom({
+    key: "loadingState",
     default: false,
+});
+
+export const LanguageErrorState = atom({
+    key: "LanguageErrorState",
+    default: false,
+});
+
+export const FunctionErrorState = atom({
+    key: "FunctionErrorState",
+    default: false,
+});
+
+export const ResponseErrorState = atom({
+    key: "ResponseErrorState",
+    default: false,
+});
+
+export const ResultErrorState = atom<Error | null>({
+    key: "ResultErrorState",
+    default: null,
 });
