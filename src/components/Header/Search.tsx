@@ -39,6 +39,7 @@ const languages = [
     "Go",
     "Rust",
     "JavaScript",
+    "TypeScript",
 ];
 
 export default function Search() {

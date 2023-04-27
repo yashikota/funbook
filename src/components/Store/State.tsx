@@ -13,9 +13,9 @@ export const functionState = atom({
     default: "",
 });
 
-export const responseState = atom({
+export const responseState = atom<string[]>({
     key: "responseState",
-    default: [""],
+    default: [],
 });
 
 export const resultState = atom({
