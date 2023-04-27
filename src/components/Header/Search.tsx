@@ -17,6 +17,7 @@ const Languages = () => {
         { label: "Go" },
         { label: "Rust" },
         { label: "JavaScript" },
+        { label: "TypeScript"}
     ];
 }
 
