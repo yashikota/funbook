@@ -84,12 +84,16 @@ export default function Search() {
 
     const FetchApi = async () => {
         setLoading(true);
+        setError(null);
         try {
             const form = new FormData();
             form.append("language", fromLangValue);
             form.append("function", funcValue);
+            form.append("response[]", fromLangValue);
             toLangValue.forEach(element => {
-                form.append("response[]", element);
+                if (element !== fromLangValue) {
+                    form.append("response[]", element);
+                }
             });
 
             const res = await fetch(url, {
