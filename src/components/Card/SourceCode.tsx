@@ -32,6 +32,14 @@ export default function SourceCode(props: { language: string, code: string }) {
         const lang = language.toLowerCase();
         if (lang === "c++") {
             return "cpp";
+        } else if (lang === "c#") {
+            return "csharp";
+        } else if (lang === "js" || lang === "ts" || lang === "typescript") {
+            return "javascript";
+        } else if (lang === "py") {
+            return "python";
+        } else if (lang === "rs") {
+            return "rust";
         }
         return lang;
     };
