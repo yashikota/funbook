@@ -107,7 +107,7 @@ export default function Search() {
     return (
         <Grid container direction="row" justifyContent="center" alignItems="center">
 
-            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center" }}>
+            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 {/* 変換元 言語選択 */}
                 <Autocomplete
                     disablePortal
@@ -118,9 +118,7 @@ export default function Search() {
                         width: isSmallScreen ? "80%" : 300,
                         backgroundColor: "white",
                         borderRadius: "5px",
-                        mr: 1,
-                        ml: 1,
-                        mb: 1,
+                        m: 1,
                     }}
                     onChange={(_, newValue) => {
                         setFromLangValue(newValue?.label ?? "");
@@ -149,16 +147,14 @@ export default function Search() {
                 </Typography>
             </Grid>
 
-            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center" }}>
+            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 {/* 変換元 関数名 */}
                 <TextField
                     sx={{
                         backgroundColor: "white",
                         borderRadius: "5px",
                         width: isSmallScreen ? "80%" : 300,
-                        mr: 1,
-                        ml: 1,
-                        mb: 1,
+                        m: 1,
                     }}
                     id="search"
                     label="関数名"
@@ -194,15 +190,13 @@ export default function Search() {
                 </Typography>
             </Grid>
 
-            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center" }}>
+            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 {/* 変換先 言語選択 */}
                 <FormControl sx={{
                     backgroundColor: "white",
                     borderRadius: "5px",
                     width: isSmallScreen ? "80%" : 300,
-                    mr: 1,
-                    ml: 1,
-                    mb: 1,
+                    m: 1,
                 }}>
                     <Select
                         id="demo-multiple-checkbox"
@@ -234,7 +228,7 @@ export default function Search() {
                 </Typography>
             </Grid>
 
-            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center" }}>
+            <Grid item xs={12} md={6} lg={3} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 {/* 検索アイコン */}
                 <IconButton
                     sx={{
@@ -242,9 +236,8 @@ export default function Search() {
                         variant: "outlined",
                         border: "1px solid black",
                         borderRadius: "5px",
-                        width: "90%",
-                        mr: 5,
-                        ml: 5,
+                        width: "96%",
+                        m: 1,
                     }}
                     aria-label="search"
                     onClick={FetchApi}
