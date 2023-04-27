@@ -23,7 +23,7 @@ export default function App() {
     const language: string = useRecoilValue(languageState);
     const responses: string[] = useRecoilValue(responseState);
     const isLanguageInclude = responses.includes(language);
-    const newKeys: string[] = keys.filter(key => key !== language);
+    const newKeys: string[] = keys.filter(key => key.toLowerCase() !== language.toLocaleLowerCase());
 
     return (
         <>
