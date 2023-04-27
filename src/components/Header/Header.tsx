@@ -20,7 +20,7 @@ export const Header = () => {
                                 rel="noopener noreferrer"
                                 href="https://funbook.pages.dev">
                                 <img
-                                    src="https://1.bp.blogspot.com/-BYOigKcBTGY/VkxLkKfHwWI/AAAAAAAA0n0/7Mb5mGxI6L8/s800/dictionary.png"
+                                    src="https://raw.githubusercontent.com/yashikota/funbook/master/public/icon.png"
                                     alt="logo"
                                     width="32"
                                     height="32"
