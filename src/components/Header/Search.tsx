@@ -49,7 +49,7 @@ export default function Search() {
     const [funcInputError, setFuncInputError] = useState(false);
     const [toLangInputError, setToLangInputError] = useState(false);
 
-    console.log(fromLangInputError, toLangInputError);
+    console.log(setToLangInputError);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -74,71 +74,40 @@ export default function Search() {
         );
     };
 
+    const url = "https://nem-lab.net:9669/funbook/api/search";
+    const [result, setResult] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<Error | null>(null);
+
     const FetchApi = async () => {
-        const url = "https://nem-lab.net:9669/funbook/api/search";
-        const [result, setResult] = useState("");
-        const [loading, setLoading] = useState(false);
-        const [error, setError] = useState<Error | null>(null);
+        setLoading(true);
+        try {
+            console.log("api", fromLangValue, funcValue, toLangValue);
+            const form = new FormData();
+            form.append("language", fromLangValue);
+            form.append("function", funcValue);
+            toLangValue.forEach(element => {
+                form.append("response[]", element);
+            });
 
-        console.log(result, loading, error)
-
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const form = new FormData();
-                form.append("language", "python");
-                form.append("function", "print");
-                form.append("response[]", "c");
-                form.append("response[]", "c++");
-                form.append("response[]", "java");
-                form.append("response[]", "javascript");
-                form.append("response[]", "rust");
-                form.append("response[]", "go");
-                form.append("response[]", "python");
-
-                const res = await fetch(url, {
-                    method: "POST",
-                    body: form,
-                });
-                const json = await res.json();
-                console.log(json);
-                setResult(json);
-            } catch (e: unknown) {
-                if (e instanceof Error) {
-                    setError(e);
-                } else {
-                    setError(new Error('Unknown error'));
-                }
+            const res = await fetch(url, {
+                method: "POST",
+                body: form,
+            });
+            const json = await res.json();
+            setResult(json);
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                setError(e);
+            } else {
+                setError(new Error("Unknown error"));
             }
-            setLoading(false);
         }
-
-        fetchData();
-    }
-
-    const handleSearch = () => {
-        if (fromLangValue === "") {
-            setFromLangInputError(true);
-        } else {
-            setFromLangInputError(false);
-        }
-        if (funcValue === "") {
-            setFuncInputError(true);
-        } else {
-            setFuncInputError(false);
-        }
-        if (toLangValue.length === 0) {
-            setToLangInputError(true);
-        } else {
-            setToLangInputError(false);
-        }
-        if (fromLangValue !== "" && funcValue !== "" && toLangValue.length !== 0) {
-            FetchApi();
-        }
+        setLoading(false);
     }
 
     return (
-        <Box sx={{ flexGrow: 1, minHeight: 40 }}>
+        <Box>
 
             {/* 変換元 言語選択 */}
             < Autocomplete
@@ -154,10 +123,19 @@ export default function Search() {
                     mr: isSmallScreen ? 0 : 1,
                     mb: isSmallScreen ? 1 : 0,
                 }}
+                onChange={(_, newValue) => {
+                    setFromLangValue(newValue?.label ?? "");
+                    if (newValue?.label === "") {
+                        setFromLangInputError(true);
+                    } else {
+                        setFromLangInputError(false);
+                    }
+                }}
                 renderInput={(params) => <TextField
                     {...params}
-                    onChange={(event) => setFromLangValue(event.target.value)}
-                    InputLabelProps={{ shrink: false }}
+                    error={fromLangInputError}
+                    helperText={fromLangInputError ? "言語を選択してください" : ""}
+                    label="変換元"
                 />}
             />
 
@@ -181,7 +159,7 @@ export default function Search() {
                     mb: isSmallScreen ? 1 : 0,
                 }}
                 id="search"
-                InputLabelProps={{ shrink: false }}
+                label="関数名"
                 variant="outlined"
                 size="small"
                 value={funcValue}
@@ -229,6 +207,7 @@ export default function Search() {
                     renderValue={(selected) => selected.join(", ")}
                     MenuProps={MenuProps}
                     size="small"
+                    error={toLangInputError}
                 >
                     {languages.map((language) => (
                         <MenuItem key={language} value={language}>
@@ -259,11 +238,17 @@ export default function Search() {
                     ml: isSmallScreen ? 0 : 1,
                 }}
                 aria-label="search"
-                onClick={handleSearch}
+                onClick={FetchApi}
             >
                 <SearchIcon />
                 {isSmallScreen ? "検索" : ""}
             </IconButton>
+
+            {error && <p style={{ color: "red" }}>{error.message}</p>}
+            {loading && <p>Loading...</p>}
+            {!loading && !error && result && (
+                <pre>{JSON.stringify(result, null, 2)}</pre>
+            )}
 
         </Box>
     );

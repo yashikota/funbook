@@ -29,10 +29,11 @@ export default function SourceCode(props: { language: string, code: string }) {
 
     // 言語名を取得
     const getLanguage = () => {
-        if (language === "C++") {
+        const lang = language.toLowerCase();
+        if (lang === "c++") {
             return "cpp";
         }
-        return language.toLowerCase();
+        return lang;
     };
 
     return (
