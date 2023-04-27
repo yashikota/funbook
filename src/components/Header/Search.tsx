@@ -1,5 +1,7 @@
 import { Checkbox, FormControl, IconButton, InputAdornment, ListItemText, MenuItem, Select, SelectChangeEvent, Typography, Grid, Autocomplete, TextField } from "@mui/material";
 import { SetStateAction, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
+import { resultState } from "../Store/State";
 
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -74,9 +76,11 @@ export default function Search() {
     };
 
     const url = "https://nem-lab.net:9669/funbook/api/search";
-    const [result, setResult] = useState("");
+    const [result, setResult] = useRecoilState(resultState);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
+
+    console.log(result);
 
     const FetchApi = async () => {
         setLoading(true);
@@ -249,10 +253,7 @@ export default function Search() {
             </Grid>
 
             {error && <p style={{ color: "red" }}>{error.message}</p>}
-            {loading && <p>Loading...</p>}
-            {!loading && !error && result && (
-                <pre>{JSON.stringify(result, null, 2)}</pre>
-            )}
+            {loading && <p>検索中...</p>}
 
         </Grid>
     );
