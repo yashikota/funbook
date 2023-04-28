@@ -12,6 +12,7 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 
 // 言語ごとのスタイル
 import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-java";
 import "prismjs/components/prism-go";
@@ -34,8 +35,10 @@ export default function SourceCode(props: { language: string, code: string }) {
             return "cpp";
         } else if (lang === "c#") {
             return "csharp";
-        } else if (lang === "js" || lang === "ts" || lang === "typescript") {
+        } else if (lang === "js") {
             return "javascript";
+        } else if (lang === "ts") {
+            return "typescript";
         } else if (lang === "py") {
             return "python";
         } else if (lang === "rs") {
