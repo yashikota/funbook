@@ -1,6 +1,8 @@
 import { Grid, GlobalStyles } from "@mui/material";
 import { MediaCard } from "./components/Card/Card.tsx";
+
 import { Header } from "./components/Header/Header.tsx";
+import Navigation from "./components/Navigation/Navigation.tsx";
 import Search from "./components/Search/Search.tsx";
 
 import { languageState, responseState, resultState } from "./components/Store/State.tsx";
@@ -25,6 +27,9 @@ export default function App() {
     const isLanguageInclude = responses.includes(language);
     const newKeys: string[] = keys.filter(key => key.toLowerCase() !== language.toLowerCase());
 
+    const width = window.innerWidth;
+    const isSmallScreen = width <= 1500;
+
     return (
         <>
             {/* スタイルの初期化 */}
@@ -38,7 +43,7 @@ export default function App() {
 
             {/* カード */}
             <Grid
-                sx={{ mt: "auto", mb: "auto", p: 1 }}
+                sx={{ mt: "auto", mb: "auto", p: 1, pb: 8 }}
                 container
                 direction="row"
                 spacing={3}
@@ -68,6 +73,10 @@ export default function App() {
                         </Grid>
                     )}
             </Grid>
+
+            {/* ナビゲーション */}
+            {isSmallScreen ? <Navigation /> : <></>}
+
         </>
     );
 }

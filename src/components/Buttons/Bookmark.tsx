@@ -1,7 +1,7 @@
-import BookMarkIcon from '@mui/icons-material/Bookmark';
-import { IconButton } from '@mui/material';
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { IconButton } from "@mui/material";
 
-export default function BookMarkButton() {
+export default function BookmarkButton() {
     return (
         <IconButton
             size="small"
@@ -17,7 +17,7 @@ export default function BookMarkButton() {
                 },
             }}
         >
-            <BookMarkIcon />
+            <BookmarkIcon />
         </IconButton>
     );
 }

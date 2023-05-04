@@ -1,8 +1,5 @@
 import { Link, Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 
-// import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-// import BookmarkIcon from "@mui/icons-material/Bookmark";
-
 export const Header = () => {
     return (
         <>
@@ -38,24 +35,8 @@ export const Header = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            ご意見はこちらから
+                            ご意見箱
                         </Button>
-
-                        {/* ランキングボタン */}
-                        {/* <IconButton
-                            sx={{ color: "white", mr: 1 }}
-                            aria-label="ranking"
-                        >
-                            <TrendingUpIcon />
-                        </IconButton> */}
-
-                        {/* ブックマークボタン */}
-                        {/* <IconButton
-                            sx={{ color: "white" }}
-                            aria-label="bookmark"
-                        >
-                            <BookmarkIcon />
-                        </IconButton> */}
 
                     </Toolbar>
                 </AppBar>
