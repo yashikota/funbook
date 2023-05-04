@@ -75,7 +75,7 @@ export default function App() {
             </Grid>
 
             {/* ナビゲーション */}
-            {isSmallScreen ? <Navigation /> : <></>}
+            {/* {isSmallScreen ? <Navigation /> : <></>} */}
 
         </>
     );
