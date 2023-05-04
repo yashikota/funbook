@@ -1,7 +1,7 @@
 import { Grid, GlobalStyles } from "@mui/material";
 import { MediaCard } from "./components/Card/Card.tsx";
 import { Header } from "./components/Header/Header.tsx";
-import Search from "./components/Header/Search.tsx";
+import Search from "./components/Search/Search.tsx";
 
 import { languageState, responseState, resultState } from "./components/Store/State.tsx";
 import { useRecoilValue } from "recoil";
