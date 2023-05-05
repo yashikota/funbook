@@ -1,11 +1,16 @@
 import { Link, Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 
+// import SearchType from "../Buttons/SearchType";
+
+// import { useRecoilValue } from "recoil";
+// import { isMobileState } from "../Store/State";
+
 export const Header = () => {
     return (
         <>
-            <Box sx={{ flexGrow: 1, minHeight: 80 }}>
-                <AppBar sx={{ position: "fixed", minHeight: 64, backgroundColor: "#424242" }}>
-                    <Toolbar sx={{ minHeight: 64, backgroundColor: "#424242" }}>
+            <Box sx={{ flexGrow: 1, minHeight: 70 }}>
+                <AppBar sx={{ position: "fixed", minHeight: 50, backgroundColor: "#424242" }}>
+                    <Toolbar sx={{ minHeight: 50, backgroundColor: "#424242" }}>
 
                         {/* ロゴとアプリ名 */}
                         <Typography
@@ -26,6 +31,9 @@ export const Header = () => {
                                 &nbsp;FunBook (β版)
                             </Link>
                         </Typography>
+
+                        {/* 検索タイプ */}
+                        {/* {useRecoilValue(isMobileState) ? (<></>) : (<SearchType />)} */}
 
                         {/* ご意見箱へのボタン */}
                         <Button

@@ -3,6 +3,8 @@ import { atom } from "recoil";
 
 import initData from "../../json/init.json";
 
+const isMobile = window.innerWidth <= 600;
+
 export const languageState = atom({
     key: "languageState",
     default: "",
@@ -46,4 +48,9 @@ export const ResponseErrorState = atom({
 export const ResultErrorState = atom<Error | null>({
     key: "ResultErrorState",
     default: null,
+});
+
+export const isMobileState = atom({
+    key: "isMobileState",
+    default: isMobile,
 });

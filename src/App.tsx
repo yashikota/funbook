@@ -4,6 +4,7 @@ import { MediaCard } from "./components/Card/Card.tsx";
 import { Header } from "./components/Header/Header.tsx";
 // import Navigation from "./components/Navigation/Navigation.tsx";
 import Search from "./components/Search/Search.tsx";
+// import SearchType from "./components/Buttons/SearchType.tsx";
 
 import { languageState, responseState, resultState } from "./components/Store/State.tsx";
 import { useRecoilValue } from "recoil";
@@ -34,6 +35,9 @@ export default function App() {
 
             {/* ヘッダー */}
             <Header />
+
+            {/* 検索タイプ */}
+            {/* {useRecoilValue(isMobileState) ? (<SearchType />) : (<></>)} */}
 
             {/* 検索 */}
             <Search />
