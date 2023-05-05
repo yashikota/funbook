@@ -13,7 +13,7 @@ export default function Navigation() {
             <BottomNavigation
                 showLabels
                 value={value}
-                onChange={(event, newValue) => {
+                onChange={(_, newValue) => {
                     setValue(newValue);
                 }}
                 sx={{ backgroundColor: "#424242" }}
