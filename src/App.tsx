@@ -1,6 +1,6 @@
 import { Grid, GlobalStyles } from "@mui/material";
-import { MediaCard } from "./components/Card/Card.tsx";
 
+import { MediaCard } from "./components/Card/Card.tsx";
 import { Header } from "./components/Header/Header.tsx";
 // import Navigation from "./components/Navigation/Navigation.tsx";
 import Search from "./components/Search/Search.tsx";
@@ -26,9 +26,6 @@ export default function App() {
     const responses: string[] = useRecoilValue(responseState);
     const isLanguageInclude = responses.includes(language);
     const newKeys: string[] = keys.filter(key => key.toLowerCase() !== language.toLowerCase());
-
-    // const width = window.innerWidth;
-    // const isSmallScreen = width <= 1500;
 
     return (
         <>
@@ -75,7 +72,7 @@ export default function App() {
             </Grid>
 
             {/* ナビゲーション */}
-            {/* {isSmallScreen ? <Navigation /> : <></>} */}
+            {/* <Navigation /> */}
 
         </>
     );
