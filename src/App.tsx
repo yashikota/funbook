@@ -1,4 +1,4 @@
-import { Grid, GlobalStyles } from "@mui/material";
+import { Grid, GlobalStyles, Alert, Link, Box } from "@mui/material";
 
 import { MediaCard } from "./components/Card/Card.tsx";
 import { Header } from "./components/Header/Header.tsx";
@@ -38,6 +38,15 @@ export default function App() {
 
             {/* 検索タイプ */}
             {/* {useRecoilValue(isMobileState) ? (<SearchType />) : (<></>)} */}
+
+            {/* 終了した旨の表示を追加 */}
+            <Box display="flex" justifyContent="center">
+                <Alert severity="error">
+                    開発を終了したため、使用できません。リポジトリはこちら→
+                    <Link href="https://github.com/yashikota/funbook">フロントエンド</Link>，
+                    <Link href="https://github.com/t-nobuyuki0330/mbs-back">バックエンド</Link>
+                </Alert>
+            </Box>
 
             {/* 検索 */}
             <Search />
